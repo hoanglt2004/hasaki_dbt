@@ -9,14 +9,8 @@ jobs:
   run-dbt:
     runs-on: ubuntu-latest
 
-    env:
-      SUPABASE_HOST: ${{ secrets.SUPABASE_HOST }}
-      SUPABASE_USER: ${{ secrets.SUPABASE_USER }}
-      SUPABASE_PASSWORD: ${{ secrets.SUPABASE_PASSWORD }}
-      SUPABASE_DB: ${{ secrets.SUPABASE_DB }}
-
     steps:
-      - name: Checkout repository
+      - name: Check out repository
         uses: actions/checkout@v3
 
       - name: Set up Python
@@ -38,11 +32,11 @@ jobs:
             outputs:
               dev:
                 type: postgres
-                host: ${SUPABASE_HOST}
-                user: ${SUPABASE_USER}
-                password: ${SUPABASE_PASSWORD}
+                host: ${{ secrets.SUPABASE_HOST }}
+                user: ${{ secrets.SUPABASE_USER }}
+                password: ${{ secrets.SUPABASE_PASSWORD }}
                 port: 5432
-                dbname: ${SUPABASE_DB}
+                dbname: ${{ secrets.SUPABASE_DB }}
                 schema: raw_clean_dwh
                 threads: 4
                 sslmode: require
