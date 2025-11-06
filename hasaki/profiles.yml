@@ -8,5 +8,5 @@ hasaki:
       password: "{{ env_var('SUPABASE_PASSWORD') }}"
       port: 5432
       dbname: "{{ env_var('SUPABASE_DB') }}"
-      schema: raw_clean_dwh
+      schema: raw
       sslmode: require

@@ -16,11 +16,11 @@ clean-targets:
 models:
   hasaki:
     staging:
-      +schema: raw_staging
+      +schema: staging
       +materialized: view
 
     marts:
-      +schema: raw_clean_dwh
+      +schema: clean_dwh
       +materialized: table
 
       dimensions:
@@ -28,3 +28,4 @@ models:
 
       facts:
         +materialized: incremental
+
