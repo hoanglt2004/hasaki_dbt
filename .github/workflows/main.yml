@@ -2,8 +2,8 @@ name: Daily dbt Run
 
 on:
   schedule:
-    - cron: "0 17 * * *"   # 00:00 theo VN (GMT+7)
-  workflow_dispatch:
+    - cron: "0 17 * * *"   # 00:00 theo giờ VN (GMT+7)
+  workflow_dispatch:        # Cho phép chạy thủ công từ GitHub
 
 jobs:
   run-dbt:
@@ -17,18 +17,23 @@ jobs:
       SUPABASE_PORT: 5432
 
     steps:
-      - name: Checkout repo
+      # B1. Clone mã nguồn repo về runner
+      - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Setup Python
+      # B2. Cài đặt Python
+      - name: Set up Python
         uses: actions/setup-python@v4
         with:
           python-version: '3.12'
 
+      # B3. Cài dbt adapter cho PostgreSQL (Supabase)
       - name: Install dbt Postgres adapter
         run: |
+          pip install --upgrade pip
           pip install dbt-postgres
 
+      # B4. Tạo file cấu hình profiles.yml
       - name: Create profiles.yml
         run: |
           mkdir -p ~/.dbt
@@ -43,14 +48,16 @@ jobs:
                 password: ${SUPABASE_PASSWORD}
                 port: ${SUPABASE_PORT}
                 dbname: ${SUPABASE_DB}
-                schema: raw_clean_dwh
+                schema: raw
                 sslmode: require
           EOF
 
+      # B5. Cài đặt dependencies của dbt (nếu có dbt_utils, etc.)
       - name: Install dbt packages (dbt deps)
         working-directory: ./hasaki
         run: dbt deps --profiles-dir ~/.dbt
 
+      # B6. Build toàn bộ models
       - name: Run dbt build
         working-directory: ./hasaki
         run: dbt build --profiles-dir ~/.dbt
