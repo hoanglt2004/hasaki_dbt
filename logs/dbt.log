@@ -1,0 +1,49 @@
+[0m22:01:42.429761 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'start', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x00000198D82B52E0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x00000198D5098830>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x00000198D8757860>]}
+
+
+============================== 22:01:42.434767 | 96d9d3f9-751c-4c44-8f16-fecaca2762f1 ==============================
+[0m22:01:42.434767 [info ] [MainThread]: Running with dbt=1.10.13
+[0m22:01:42.435769 [debug] [MainThread]: running dbt with arguments {'invocation_command': 'dbt init hasaki', 'write_json': 'True', 'cache_selected_only': 'False', 'no_print': 'None', 'log_format': 'default', 'warn_error': 'None', 'indirect_selection': 'eager', 'partial_parse': 'True', 'log_path': 'logs', 'send_anonymous_usage_stats': 'True', 'fail_fast': 'False', 'warn_error_options': 'WarnErrorOptionsV2(error=[], warn=[], silence=[])', 'static_parser': 'True', 'version_check': 'True', 'use_experimental_parser': 'False', 'introspect': 'True', 'quiet': 'False', 'empty': 'None', 'log_cache_events': 'False', 'debug': 'False', 'profiles_dir': 'C:\\Users\\Thai Hoang\\.dbt', 'use_colors': 'True', 'printer_width': '80', 'target_path': 'None'}
+[0m22:01:42.483752 [debug] [MainThread]: Starter project path: C:\Users\Thai Hoang\Desktop\Năm 4 Kỳ 1\Big Data\hasaki_dbt\venv\Lib\site-packages\dbt\include\starter_project
+[0m22:01:42.500758 [info ] [MainThread]: 
+Your new dbt project "hasaki" was created!
+
+For more information on how to configure the profiles.yml file,
+please consult the dbt documentation here:
+
+  https://docs.getdbt.com/docs/configure-your-profile
+
+One more thing:
+
+Need help? Don't hesitate to reach out to us via GitHub issues or on Slack:
+
+  https://community.getdbt.com/
+
+Happy modeling!
+
+[0m22:01:42.501752 [info ] [MainThread]: Setting up your profile.
+[0m22:02:51.650839 [info ] [MainThread]: Profile hasaki written to C:\Users\Thai Hoang\.dbt\profiles.yml using target's profile_template.yml and your supplied values. Run 'dbt debug' to validate the connection.
+[0m22:02:51.652842 [debug] [MainThread]: Command `dbt init` succeeded at 22:02:51.651841 after 69.38 seconds
+[0m22:02:51.652842 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x00000198D94A3590>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x00000198D9758A40>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x00000198D8DAE000>]}
+[0m22:02:51.653838 [debug] [MainThread]: Flushing usage events
+[0m22:02:53.361841 [debug] [MainThread]: An error was encountered while trying to flush usage events
+[0m22:03:02.312369 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'start', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000025EA37F19A0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000025EA37846E0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000025EA1D12F00>]}
+
+
+============================== 22:03:02.320369 | 8e786a4b-cc74-48a6-a3cb-9f8288a5b83f ==============================
+[0m22:03:02.320369 [info ] [MainThread]: Running with dbt=1.10.13
+[0m22:03:02.321370 [debug] [MainThread]: running dbt with arguments {'cache_selected_only': 'False', 'invocation_command': 'dbt debug', 'no_print': 'None', 'target_path': 'None', 'profiles_dir': 'C:\\Users\\Thai Hoang\\.dbt', 'warn_error': 'None', 'static_parser': 'True', 'partial_parse': 'True', 'log_path': 'logs', 'send_anonymous_usage_stats': 'True', 'fail_fast': 'False', 'warn_error_options': 'WarnErrorOptionsV2(error=[], warn=[], silence=[])', 'indirect_selection': 'eager', 'version_check': 'True', 'use_experimental_parser': 'False', 'introspect': 'True', 'quiet': 'False', 'empty': 'None', 'log_cache_events': 'False', 'debug': 'False', 'log_format': 'default', 'use_colors': 'True', 'printer_width': '80', 'write_json': 'True'}
+[0m22:03:02.346368 [info ] [MainThread]: dbt version: 1.10.13
+[0m22:03:02.347368 [info ] [MainThread]: python version: 3.12.0
+[0m22:03:02.348369 [info ] [MainThread]: python path: C:\Users\Thai Hoang\Desktop\Năm 4 Kỳ 1\Big Data\hasaki_dbt\venv\Scripts\python.exe
+[0m22:03:02.348369 [info ] [MainThread]: os info: Windows-11-10.0.26100-SP0
+[0m22:03:02.429045 [info ] [MainThread]: Using profiles dir at C:\Users\Thai Hoang\.dbt
+[0m22:03:02.430046 [info ] [MainThread]: Using profiles.yml file at C:\Users\Thai Hoang\.dbt\profiles.yml
+[0m22:03:02.431046 [info ] [MainThread]: Using dbt_project.yml file at C:\Users\Thai Hoang\Desktop\Năm 4 Kỳ 1\Big Data\hasaki_dbt\dbt_project.yml
+[0m22:03:02.433046 [error] [MainThread]: Encountered an error:
+Internal Error
+  Profile should not be None if loading profile completed
+[0m22:03:02.434064 [debug] [MainThread]: Command `dbt debug` failed at 22:03:02.434064 after 0.32 seconds
+[0m22:03:02.435046 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000025EA3D33980>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000025EA40B88F0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000025EA46E7200>]}
+[0m22:03:02.436046 [debug] [MainThread]: Flushing usage events
+[0m22:03:13.509952 [debug] [MainThread]: An error was encountered while trying to flush usage events

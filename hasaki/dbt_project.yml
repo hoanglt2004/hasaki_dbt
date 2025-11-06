@@ -1,0 +1,23 @@
+name: 'hasaki'
+version: '1.0.0'
+profile: 'hasaki'
+
+model-paths: ["models"]
+analysis-paths: ["analyses"]
+test-paths: ["tests"]
+seed-paths: ["seeds"]
+macro-paths: ["macros"]
+snapshot-paths: ["snapshots"]
+
+clean-targets:
+  - "target"
+  - "dbt_packages"
+
+models:
+  hasaki:
+    staging:
+      +schema: staging
+      +materialized: incremental
+    marts:
+      +schema: clean_dwh
+      +materialized: table

@@ -1,0 +1,87 @@
+version: 2
+
+models:
+
+  # -------------------- DIM TABLES --------------------
+  - name: dim_product
+    description: "Danh mục sản phẩm"
+    columns:
+      - name: product_id
+        tests:
+          - unique
+          - not_null
+
+  - name: dim_brand
+    description: "Danh mục thương hiệu"
+    columns:
+      - name: brand_id
+        tests:
+          - unique
+          - not_null
+
+  - name: dim_category
+    description: "Danh mục loại sản phẩm"
+    columns:
+      - name: category_id
+        tests:
+          - unique
+          - not_null
+
+  - name: dim_session
+    description: "Thông tin session crawl để phân tích theo thời gian"
+    columns:
+      - name: session_id
+        tests:
+          - unique
+          - not_null
+
+  # -------------------- FACT TABLES --------------------
+  - name: fact_prices
+    description: "Lịch sử giá sản phẩm theo session"
+    columns:
+      - name: product_id
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_product')
+              field: product_id
+      - name: session_id
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_session')
+              field: session_id
+
+  - name: fact_inventory
+    description: "Tồn kho sản phẩm theo session"
+    columns:
+      - name: product_id
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_product')
+              field: product_id
+      - name: session_id
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_session')
+              field: session_id
+
+  - name: fact_reviews
+    description: "Đánh giá khách hàng theo sản phẩm. Một review có thể xuất hiện ở nhiều sản phẩm (biến thể)"
+    columns:
+      - name: review_id
+        tests:
+          - not_null
+      - name: product_id
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_product')
+              field: product_id
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - review_id
+            - product_id
