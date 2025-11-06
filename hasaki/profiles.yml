@@ -1,0 +1,12 @@
+hasaki:
+  target: prod
+  outputs:
+    prod:
+      type: postgres
+      host: "{{ env_var('SUPABASE_HOST') }}"
+      user: "{{ env_var('SUPABASE_USER') }}"
+      password: "{{ env_var('SUPABASE_PASSWORD') }}"
+      port: 5432
+      dbname: "{{ env_var('SUPABASE_DB') }}"
+      schema: raw_clean_dwh
+      sslmode: require
