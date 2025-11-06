@@ -2,8 +2,8 @@ name: Daily dbt Run
 
 on:
   schedule:
-    - cron: "0 17 * * *"   # chạy 00:00 theo VN (GMT+7)
-  workflow_dispatch:      # cho phép chạy thủ công
+    - cron: "0 17 * * *"   # 00:00 theo VN (GMT+7)
+  workflow_dispatch:
 
 jobs:
   run-dbt:
@@ -47,7 +47,10 @@ jobs:
                 sslmode: require
           EOF
 
+      - name: Install dbt packages (dbt deps)
+        working-directory: ./hasaki
+        run: dbt deps --profiles-dir ~/.dbt
+
       - name: Run dbt build
         working-directory: ./hasaki
-        run: |
-          dbt build --profiles-dir ~/.dbt
+        run: dbt build --profiles-dir ~/.dbt
