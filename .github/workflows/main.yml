@@ -2,25 +2,31 @@ name: Daily dbt Run
 
 on:
   schedule:
-    - cron: "0 17 * * *"
-  workflow_dispatch:
+    - cron: "0 17 * * *"   # chạy 00:00 theo VN (GMT+7)
+  workflow_dispatch:      # cho phép chạy thủ công
 
 jobs:
   run-dbt:
     runs-on: ubuntu-latest
 
+    env:
+      SUPABASE_HOST: ${{ secrets.SUPABASE_HOST }}
+      SUPABASE_USER: ${{ secrets.SUPABASE_USER }}
+      SUPABASE_PASSWORD: ${{ secrets.SUPABASE_PASSWORD }}
+      SUPABASE_DB: ${{ secrets.SUPABASE_DB }}
+      SUPABASE_PORT: 5432
+
     steps:
-      - name: Check out repository
+      - name: Checkout repo
         uses: actions/checkout@v3
 
-      - name: Set up Python
+      - name: Setup Python
         uses: actions/setup-python@v4
         with:
-          python-version: "3.12"
+          python-version: '3.12'
 
-      - name: Install dbt
+      - name: Install dbt Postgres adapter
         run: |
-          pip install --upgrade pip
           pip install dbt-postgres
 
       - name: Create profiles.yml
@@ -32,15 +38,16 @@ jobs:
             outputs:
               dev:
                 type: postgres
-                host: ${{ secrets.SUPABASE_HOST }}
-                user: ${{ secrets.SUPABASE_USER }}
-                password: ${{ secrets.SUPABASE_PASSWORD }}
-                port: 5432
-                dbname: ${{ secrets.SUPABASE_DB }}
+                host: ${SUPABASE_HOST}
+                user: ${SUPABASE_USER}
+                password: ${SUPABASE_PASSWORD}
+                port: ${SUPABASE_PORT}
+                dbname: ${SUPABASE_DB}
                 schema: raw_clean_dwh
-                threads: 4
                 sslmode: require
           EOF
 
       - name: Run dbt build
-        run: dbt build --profiles-dir ~/.dbt
+        working-directory: ./hasaki
+        run: |
+          dbt build --profiles-dir ~/.dbt
