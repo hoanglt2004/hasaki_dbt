@@ -2,8 +2,8 @@ name: Daily dbt Run
 
 on:
   schedule:
-    - cron: "0 17 * * *"  
-  workflow_dispatch:        
+    - cron: "0 17 * * *"
+  workflow_dispatch:
 
 jobs:
   run-dbt:
@@ -16,7 +16,7 @@ jobs:
       SUPABASE_DB: ${{ secrets.SUPABASE_DB }}
 
     steps:
-      - name: Check out repository
+      - name: Checkout repository
         uses: actions/checkout@v3
 
       - name: Set up Python
@@ -26,6 +26,7 @@ jobs:
 
       - name: Install dependencies
         run: |
+          python -m pip install --upgrade pip
           pip install dbt-postgres
 
       - name: Create profiles.yml
@@ -43,9 +44,9 @@ jobs:
                 port: 5432
                 dbname: ${SUPABASE_DB}
                 schema: raw_clean_dwh
+                threads: 4
                 sslmode: require
           EOF
 
       - name: Run dbt build
-        run: |
-          dbt build --profiles-dir ~/.dbt
+        run: dbt build --profiles-dir ~/.dbt
