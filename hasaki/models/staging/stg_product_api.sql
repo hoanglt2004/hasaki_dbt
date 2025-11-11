@@ -4,7 +4,7 @@
 ) }}
 
 select
-    (data->>'id')::int as product_id,
+    product_id::int as product_id,
     (data->>'name') as product_name,
     (data->'brand'->>'id')::int as brand_id,
     (data->'brand'->>'name') as brand_name,
@@ -21,9 +21,12 @@ select
     NULLIF(data->'deal_data'->>'coming', '')::timestamp AS deal_start,
     NULLIF(data->'deal_data'->>'expire', '')::timestamp AS deal_expire,
     session_id,
-    captured_at
+    created_at as captured_at
 from raw.product_api
 
 {% if is_incremental() %}
-where captured_at > (select max(captured_at) from {{ this }})
+  where created_at > (
+      select max(created_at) 
+      from {{ this }}
+  )
 {% endif %}

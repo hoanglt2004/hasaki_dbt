@@ -6,9 +6,10 @@
 
 select
     (review->>'id')::int as review_id,
-    (data->>'id')::int as product_id,
+    product_id::int as product_id,
     (review->>'user_id')::int as user_id,
     (review->'rating'->>'star')::int as rating_star,
+    (review->'rating'->>'description') as rating_description,
     NULLIF(
     CASE 
         WHEN trim(review->>'content') = '' THEN NULL
@@ -20,11 +21,11 @@ select
     review->>'user_fullname' as user_name,
     to_timestamp((review->>'created_at')::bigint) as created_at,
     session_id,
-    captured_at
-from raw.product_api,
-    jsonb_array_elements(data->'short_rating_data'->'reviews') as review
+    created_at as captured_at
+from raw.review_api
+,jsonb_array_elements(data->'data'->'reviews') as review
 where 
-    CASE 
+  CASE 
         WHEN trim(review->>'content') = '' THEN NULL
         WHEN lower(trim(review->>'content')) IN ('null', 'undefined', 'none') THEN NULL
         WHEN trim(review->>'content') ~ '^[\.\,\!\?\-\_]+$' THEN NULL
