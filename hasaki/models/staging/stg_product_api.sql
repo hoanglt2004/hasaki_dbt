@@ -6,7 +6,7 @@
 {% if is_incremental() %}
 
 with last_run as (
-    select coalesce(max(created_at), '1900-01-01'::timestamp) as max_created_at
+    select coalesce(max(captured_at), '1900-01-01'::timestamp) as max_created_at
     from {{ this }}
 ),
 
